@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BookShelf from './BookShelf';
-import { filterBooksByShelf} from './Utils';
+import {filterBooksByShelf, startCase} from './Utils';
 
 
 const BookShelves = (props) => {
@@ -20,7 +20,7 @@ const BookShelves = (props) => {
             <div className='list-books-content'>
                 {shelves.map(shelf => (
                     <div key={shelf} className="bookshelf">
-                        <h2 className="bookshelf-title">{shelf}</h2>
+                        <h2 className="bookshelf-title">{startCase(shelf)}</h2>
                         <div className="bookshelf-books">
                             <BookShelf
                                 books={filterBooksByShelf(books, shelf)}

@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import * as BookAPI from './BooksAPI';
 import BookShelf from "./BookShelf";
 
-const  ERROR_EMPTY_QUERY = 'empty query';
+const ERROR_EMPTY_QUERY = 'empty query';
 
 const addShelfToBooks = (categorizedBooks, uncategorizedBooks) => {
     const shelfLookup =
-        categorizedBooks.reduce((acc, book) => ({ ...acc, [book.id]: book.shelf }), {});
-    return uncategorizedBooks.map(book => ({ ...book, shelf: shelfLookup[book.id] }));
+        categorizedBooks.reduce((acc, book) => ({...acc, [book.id]: book.shelf}), {});
+    return uncategorizedBooks.map(book => ({...book, shelf: shelfLookup[book.id]}));
 };
 
 class SearchBooks extends Component {
@@ -28,32 +28,32 @@ class SearchBooks extends Component {
     }
 
     searchBooks(query) {
-        this.setState({ query, error: '' });
+        this.setState({query, error: ''});
 
-        if(query.length < 1) {
-            this.setState({ books: [] });
+        if (query.length < 1) {
+            this.setState({books: []});
             return;
         }
 
         BookAPI.search(query, 20).then(books => {
             if (Array.isArray(books)) {
-                this.setState({ books });
+                this.setState({books});
                 return;
             }
 
-            switch(books.error) {
+            switch (books.error) {
                 case ERROR_EMPTY_QUERY:
-                    this.setState({ error: "No books found." });
+                    this.setState({error: "There is no Results.  Try another search."});
                     break;
                 default:
-                    this.setState({ error: books.error });
+                    this.setState({error: books.error});
             }
         });
     }
 
     render() {
-        const { books, error, query } = this.state;
-        const { categorizedBooks, shelves, onUpdateBook } = this.props;
+        const {books, error, query} = this.state;
+        const {categorizedBooks, shelves, onUpdateBook} = this.props;
         return (
             <div className='search-books'>
                 <div className='search-books-bar'>
@@ -68,13 +68,15 @@ class SearchBooks extends Component {
                     </div>
                 </div>
                 <div className='search-books-results'>
-                    {error !== '' ? (<h2>{error}</h2>) : (
-                    <BookShelf
-                        books={addShelfToBooks(categorizedBooks, books)}
-                        shelves={shelves}
-                        onUpdateBook={onUpdateBook}
-                    />
-                    )}
+                    {error !== '' ?
+                        (<h2>{error}</h2>) :
+                        (
+                            <BookShelf
+                                books={addShelfToBooks(categorizedBooks, books)}
+                                shelves={shelves}
+                                onUpdateBook={onUpdateBook}
+                            />
+                        )}
                 </div>
             </div>
         )

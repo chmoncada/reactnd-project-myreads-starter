@@ -1,5 +1,6 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import {startCase} from "./Utils";
 
 const Book = (props) => {
     const {
@@ -24,7 +25,7 @@ const Book = (props) => {
                     >
                         <option value='none' disabled>Move to...</option>
                         {shelves.map(shelf =>
-                            <option key={shelf} value={shelf}>{shelf}</option>
+                            <option key={shelf} value={shelf}>{startCase(shelf)}</option>
                         )}
                         <option value='none'>None</option>
                     </select>
@@ -34,7 +35,13 @@ const Book = (props) => {
             <div className='book-authors'>{authors && authors.join(', ')}</div>
         </div>
     )
-}
+};
+
+Book.defaultProps = {
+    authors: [],
+    imageLinks: {thumbnail: "http://books.google.com/books/content?id=notfound&printsec=frontcover&img=1&zoom=1&source=gbs_api"},
+    shelf: "none"
+};
 
 Book.propTypes = {
     info: PropTypes.shape({

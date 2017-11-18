@@ -12,13 +12,13 @@ const BookShelf = (props) => {
     return (
         <ol className='books-grid'>
             {books.map(book => {
-                    const {
-                        authors,
-                        id,
-                        imageLinks,
-                        shelf,
-                        title
-                    } = book;
+                const {
+                    authors,
+                    id,
+                    imageLinks,
+                    shelf,
+                    title
+                } = book;
 
                 return (
                     <li key={book.id}>
@@ -29,10 +29,10 @@ const BookShelf = (props) => {
                             shelf={shelf}
                             title={title}
                             shelves={shelves}
-                            onUpdateBook={onUpdateBook} />
+                            onUpdateBook={onUpdateBook}/>
                     </li>
                 );
-                })
+            })
             }
         </ol>
     );
